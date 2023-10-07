@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign-up Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffefe0;
+            border-radius: 5px;
+            box-shadow: 0px 0px 8px 0px rgba(229, 255, 181, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0px 0px 15px 0px rgba(217, 235, 175, 0.2);
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 370px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ffefef;
+            border-radius: 5px;
+            outline: none;
+            transition: all 0.3s ease;
+            
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #0080ff;
+            font-size: 10px;
+
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        button[type="submit"] {
+            width: 80px;
+            padding: 10px;
+            border: none;
+            background-color: #0080ff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0080ff;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Sign-up Form</h2>
+        <form id="signupForm">
+            <label for="email">User Email:</label>
+            <input type="text" id="email" placeholder="User Email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Password" required>
+            <br><br>
+            <center><button type="submit">Signup</button></center>
+        </form>
+        <div id="error" class="error"></div>
+    </div>
+
+    <script>
+        const signupForm = document.getElementById('signupForm');
+        const email = document.getElementById('email');
+        const password = document.getElementById('password');
+        const error = document.getElementById('error');
+
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const emailValue = email.value.trim();
+            const passwordValue = password.value.trim();
+
+            if (!validateEmail(emailValue)) {
+                error.textContent = 'Please enter a valid email address';
+                return;
+            }
+
+            if (!validatePassword(passwordValue)) {
+                error.textContent = 'Password must be at least 8 characters and contain at least one uppercase letter, one special character, and one number';
+                return;
+            }
+
+            error.textContent = '';
+            alert('Sign-up successful');
+        });
+
+        function validateEmail(email) {
+            const re = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+            return re.test(email);
+        }
+
+        function validatePassword(password) {
+            const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            return re.test(password);
+        }
+    </script>
+</body>
+</html>
